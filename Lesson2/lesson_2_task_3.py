@@ -1,7 +1,8 @@
+import math
 def square(a):
-    result = a*a
+    result = math.ceil(a*a)
     return result
 
 
-s = square(4)
+s = square(4.2)
 print(s)
