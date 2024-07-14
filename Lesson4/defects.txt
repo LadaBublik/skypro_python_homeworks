@@ -1,0 +1,4 @@
+Описание дефектов и неточностей в классе StringUtils:
+
+1. Допущена опечатка в названии метода capitilize. Правильно capitalize.
+2. В методе contains некорректная работа со строкой, которая не содержит ни одного символа (строка 63 в test_dtring_utils.py). Ошибка: test_contains[dog--False] - assert True == False.
