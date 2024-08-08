@@ -27,28 +27,26 @@ def test_data_form():
                         "input[name='job-position']").send_keys("QA")
     driver.find_element(By.CSS_SELECTOR,
                         "input[name='company']").send_keys("SkyPro")
+    
     waiter = WebDriverWait(driver, 15)
     waiter.until(EC.element_to_be_clickable(
         (By.TAG_NAME, "button")))
+        
     driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
-    assert "danger" in driver.find_element(
-        By.ID, "zip-code").get_attribute("class")
-    assert "success" in driver.find_element(
-        By.ID, "first-name").get_attribute("class")
-    assert "success" in driver.find_element(
-        By.ID, "last-name").get_attribute("class")
-    assert "success" in driver.find_element(
-        By.ID, "address").get_attribute("class")
-    assert "success" in driver.find_element(
-        By.ID, "city").get_attribute("class")
-    assert "success" in driver.find_element(
-        By.ID, "country").get_attribute("class")
-    assert "success" in driver.find_element(
-        By.ID, "e-mail").get_attribute("class")
-    assert "success" in driver.find_element(
-        By.ID, "phone").get_attribute("class")
-    assert "success" in driver.find_element(
-        By.ID, "job-position").get_attribute("class")
-    assert "success" in driver.find_element(
-        By.ID, "company").get_attribute("class")
+    red_form = driver.find_element(By.CSS_SELECTOR, "#zip-code").value_of_css_property("color")
+    assert red_form == 'rgba(132, 32, 41, 1)' 
+    locators = [
+        "#first-name",
+        "#last-name",
+        "#address",
+        "#city",
+        "#country",
+        "#e-mail",
+        "#phone",
+        "#job-position",
+        "#company"
+    ]
+    for green in locators:
+        green_forms = driver.find_element(By.CSS_SELECTOR, green).value_of_css_property("color")
+        assert green_forms == 'rgba(15, 81, 50, 1)'
     driver.quit()
