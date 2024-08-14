@@ -7,4 +7,4 @@ class ResultPage:
 
     def sum_result(self):
         return self._driver.find_element(
-            By.XPATH, '//div[text()="15"]').text
+            By.CSS_SELECTOR, 'div.screen').text

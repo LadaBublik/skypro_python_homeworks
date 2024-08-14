@@ -1,6 +1,6 @@
 from selenium import webdriver
-from DataTypesForm.pages.main_page import MainPage
-from DataTypesForm.pages.result_page import ResultPage
+from pages.main_page import MainPage
+from pages.result_page import ResultPage
 
 
 def test_data_types_form():

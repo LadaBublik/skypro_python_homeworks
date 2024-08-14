@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from data_shop import *
 
 
 class MainPage:
@@ -9,7 +10,6 @@ class MainPage:
         self._driver.maximize_window()
 
     def authorization(self):
-        self._driver.find_element(By.ID, "user-name").send_keys(
-            "standard_user")
-        self._driver.find_element(By.ID, "password").send_keys("secret_sauce")
+        self._driver.find_element(By.ID, "user-name").send_keys(login)
+        self._driver.find_element(By.ID, "password").send_keys(password)
         self._driver.find_element(By.ID, "login-button").click()

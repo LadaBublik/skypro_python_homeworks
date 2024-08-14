@@ -11,15 +11,16 @@ class MainPage:
             "https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
         self._driver.maximize_window()
 
-    def calculator_waits(self):
+    def calculator_waits(self, delay):
         self._driver.find_element(By.ID, "delay").clear()
-        self._driver.find_element(By.ID, "delay").send_keys("45")
+        self._driver.find_element(By.ID, "delay").send_keys(delay)
 
-    def sum(self):
-        self._driver.find_element(By.XPATH, '//span[text()="7"]').click()
-        self._driver.find_element(By.XPATH, '//span[text()="+"]').click()
-        self._driver.find_element(By.XPATH, '//span[text()="8"]').click()
-        self._driver.find_element(By.XPATH, '//span[text()="="]').click()
-        waiter = WebDriverWait(self._driver, 46)
+    def sum(self, first_num, second_num, 
+            operator, equal, wait_time, result):
+        self._driver.find_element(By.XPATH, f'//span[text()="{first_num}"]').click()
+        self._driver.find_element(By.XPATH, f'//span[text()="{operator}"]').click()
+        self._driver.find_element(By.XPATH, f'//span[text()="{second_num}"]').click()
+        self._driver.find_element(By.XPATH, f'//span[text()="{equal}"]').click()
+        waiter = WebDriverWait(self._driver, wait_time)
         waiter.until(EC.text_to_be_present_in_element(
-            (By.XPATH, '//div[text()="15"]'), "15"))
+            (By.XPATH, f'//div[text()="{result}"]'), result))
