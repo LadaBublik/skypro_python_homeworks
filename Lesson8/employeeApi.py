@@ -1,4 +1,5 @@
 import requests
+from data import *
 
 
 class Employee:
@@ -12,12 +13,8 @@ class Employee:
         return resp.json()
 
     # авторизация
-    def get_token(self, user='bloom', password='fire-fairy'):
-        creds = {
-            'username': user,
-            'password': password
-        }
-        resp = requests.post(self.url + '/auth/login', json=creds)
+    def get_token(self, authorization):
+        resp = requests.post(self.url + '/auth/login', json=authorization)
         return resp.json()["userToken"]
     # добавление нового сотрудника
 
@@ -32,7 +29,7 @@ class Employee:
             'isActive': isActive
         }
         my_headers = {}
-        my_headers["x-client-token"] = self.get_token()
+        my_headers["x-client-token"] = self.get_token(authorization)
         resp = requests.post(self.url + '/employee',
                              json=employee, headers=my_headers)
         return resp.json()
@@ -47,7 +44,7 @@ class Employee:
             self, employee_id, new_lastname,
             new_email, new_phone):
         my_headers = {}
-        my_headers["x-client-token"] = self.get_token()
+        my_headers["x-client-token"] = self.get_token(authorization)
         new_employee = {
             "lastName": new_lastname,
             "email": new_email,

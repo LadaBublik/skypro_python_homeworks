@@ -1,26 +1,21 @@
 from employeeApi import Employee
+from companyApi import CompanyApi
 
 
+comp = CompanyApi("https://x-clients-be.onrender.com")
 api = Employee("https://x-clients-be.onrender.com")
 
-company_id = 3414
-
+company_id = comp.create_company('Yamal', 'Helicopter')
 
 def test_get_employees_list():
     body = api.get_employee_list(company_id)
-    assert len(body) > 1
+    assert len(body) > 0
 
 
 def test_add_new_employee():
-    fn = 'Peter'
-    ln = 'Petrov'
-    compId = company_id
-    mail = 'api@kio.com'
-    phonenum = '88005554545'
-    is_active = True
-    result = api.create_employee(
-        firstname=fn, lastname=ln, companyId=compId,
-        email=mail, phone=phonenum, isActive=is_active)
+    # создание нового сотрудника
+    result = api.create_employee('Peter', 'Petrov', company_id,
+                                 'api@kio.com', '88005554545', True)
     employee_id = result['id']
     assert employee_id is not None
     # получить сотрудника по id
@@ -29,23 +24,9 @@ def test_add_new_employee():
 
 
 def test_change_employee_info():
-    fn = 'Smith'
-    ln = 'qwe@rty.ru'
-    compId = company_id
-    mail = 'api@kio.com'
-    phonenum = '88005554545'
-    is_active = True
-
-    result = api.create_employee(
-        firstname=fn, lastname=ln, companyId=compId,
-        email=mail, phone=phonenum, isActive=is_active)
-    new_id = result['id']
-
-    new_last_name = 'Johns'
-    new_mail = 'kdl@nndn.ru'
-    new_phonenum = '88005550000'
-    changed = api.change_info(
-        new_id, new_lastname=new_last_name,
-        new_email=new_mail, new_phone=new_phonenum)
-    assert changed["id"] == new_id
-    assert changed["isActive"] == is_active
+    result = api.create_employee('Smith', 'qwe@rty.ru', company_id,
+                                 'api@kio.com', '88005554545', True)
+    employee_id = result['id']
+    changed = api.change_info(employee_id, 'Johns', 'kdl@nndn.ru', '88005550000')
+    assert changed["id"] == employee_id
+    assert changed["isActive"] == True
